@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using System.IO;
+
+namespace PrintPartOfString
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("Введите k1 и k2:");
+                Console.Write("k1 = ");
+                int k1 = int.Parse(Console.ReadLine());
+                Console.Write("k2 = ");
+                int k2 = int.Parse(Console.ReadLine());
+                MakeTextFile();
+                PrintPartOfStrings(k1, k2);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Ошибка. Введите корректно k1 и k2!");
+            }
+        }
+        static void PrintPartOfStrings(int k1, int k2)
+        {
+            string[] data = File.ReadAllLines("test.txt");
+            foreach (string s in data)
+            {
+                if (s.Length < k2)
+                    continue;
+                Console.WriteLine("Исходная строка: {0}, измененная строка: {1}", s, s.Substring(k1, k2 - k1));
+            }
+        }
+        static void MakeTextFile()
+        {
+            string[] s = new[] { "congratulations", "adventures", "home", "satisfactory", "adequate" };
+            File.WriteAllLines("test.txt", s);
+        }
+    }
+}
